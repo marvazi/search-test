@@ -3,6 +3,8 @@ import asyncio
 import csv
 from datetime import datetime
 
+from sqlalchemy import select
+
 from app.db.session import engine, session_factory
 from app.models.document import Document
 
@@ -10,6 +12,13 @@ from app.models.document import Document
 async def main():
     try:
         async with session_factory() as session:
+            existing_document_id = await session.scalar(
+                select(Document.id).limit(1)
+            )
+
+            if existing_document_id is not None:
+                print("Данные уже загружены")
+                return
             with open("data/posts.csv", encoding="utf-8-sig", newline="") as file:
                 for row in csv.DictReader(file):
                     document = Document(
