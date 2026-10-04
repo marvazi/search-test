@@ -1,9 +1,7 @@
 from datetime import datetime
 from uuid import UUID, uuid4
-
-from sqlalchemy import TEXT, TIMESTAMP, ARRAY, Text, DateTime
+from sqlalchemy import ARRAY, Text, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
-
 from app.db.base import Base
 
 
